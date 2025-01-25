@@ -1,3 +1,3 @@
 # wonderfood
 
-A new Flutter project.
+Restaurant Catalog Mobile App for Dicoding Submission
