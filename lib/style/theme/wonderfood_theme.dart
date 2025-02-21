@@ -5,21 +5,23 @@ import 'package:wonderfood/style/typography/wonderfood_text_style.dart';
 class WonderfoodTheme {
   static ThemeData get lightTheme {
     return ThemeData(
-      colorSchemeSeed: WonderfoodColors.orange.color,
+      colorScheme: lightColorScheme,
+      focusColor: _lightFocusColor,
       brightness: Brightness.light,
       textTheme: _textTheme,
       useMaterial3: true,
-      appBarTheme: _appBarTheme,
+      appBarTheme: _lightAppBarTheme,
     );
   }
 
   static ThemeData get darkTheme {
     return ThemeData(
-      colorSchemeSeed: WonderfoodColors.darkBlue.color,
+      colorScheme: darkColorScheme,
+      focusColor: _darkFocusColor,
       brightness: Brightness.dark,
       textTheme: _textTheme,
       useMaterial3: true,
-      appBarTheme: _appBarTheme,
+      appBarTheme: _darkAppBarTheme,
     );
   }
 
@@ -43,9 +45,31 @@ class WonderfoodTheme {
     );
   }
 
-  static AppBarTheme get _appBarTheme {
+  static AppBarTheme get _lightAppBarTheme {
     return AppBarTheme(
-      toolbarTextStyle: _textTheme.titleLarge,
+      backgroundColor: WonderfoodColors.white.color,
+      titleTextStyle: _textTheme.titleLarge?.copyWith(
+        color: WonderfoodColors.orange.color,
+      ),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+      ),
+      actionsIconTheme: IconThemeData(
+        color: WonderfoodColors.orange.color,
+        size: 14.0,
+      ),
+    );
+  }
+
+  static AppBarTheme get _darkAppBarTheme {
+    return AppBarTheme(
+      backgroundColor: WonderfoodColors.darkBlue.color,
+      titleTextStyle: _textTheme.titleLarge?.copyWith(
+        color: WonderfoodColors.white.color,
+      ),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(20),
@@ -54,8 +78,41 @@ class WonderfoodTheme {
       ),
       actionsIconTheme: IconThemeData(
         color: WonderfoodColors.white.color,
-        size: 16.0,
+        size: 14.0,
       ),
     );
   }
+
+  static ColorScheme lightColorScheme = ColorScheme(
+    primary: WonderfoodColors.orange.color,
+    onPrimary: WonderfoodColors.white.color,
+    secondary: WonderfoodColors.brown.color,
+    onSecondary: WonderfoodColors.white.color,
+    error: WonderfoodColors.red.color,
+    onError: WonderfoodColors.white.color,
+    surface: WonderfoodColors.lightOrange.color,
+    onSurface: WonderfoodColors.black.color,
+    brightness: Brightness.light,
+    surfaceContainer: WonderfoodColors.white.color,
+  );
+
+  static ColorScheme darkColorScheme = ColorScheme(
+    primary: WonderfoodColors.darkBlue.color,
+    onPrimary: WonderfoodColors.white.color,
+    secondary: WonderfoodColors.neutralBlue.color,
+    onSecondary: WonderfoodColors.white.color,
+    error: WonderfoodColors.red.color,
+    onError: WonderfoodColors.white.color,
+    surface: WonderfoodColors.lightBlue.color,
+    onSurface: WonderfoodColors.white.color,
+    brightness: Brightness.dark,
+    surfaceContainer: WonderfoodColors.neutralBlue.color,
+  );
+
+  static final Color _lightFocusColor = Colors.black.withValues(
+    alpha: 0.12,
+  );
+  static final Color _darkFocusColor = Colors.white.withValues(
+    alpha: 0.12,
+  );
 }

@@ -18,7 +18,7 @@ class ThemeSwitcher extends StatelessWidget {
               themeProvider.isDarkMode
                   ? Icons.brightness_2
                   : Icons.brightness_4,
-              size: 25,
+              size: 20,
             ),
           ));
     });
