@@ -82,7 +82,7 @@ class WonderfoodTextStyle {
 
   static TextStyle bodyLargeRegular = _poppins.copyWith(
     fontSize: 12,
-    fontWeight: FontWeight.w200,
+    fontWeight: FontWeight.w300,
     height: 1.55,
   );
 

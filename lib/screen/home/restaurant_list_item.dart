@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wonderfood/data/model/restaurant.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class RestaurantListItem extends StatelessWidget {
   final Restaurant restaurant;
@@ -36,9 +37,12 @@ class RestaurantListItem extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    restaurant.pictureId,
-                    fit: BoxFit.cover,
+                  child: Hero(
+                    tag: restaurant.id,
+                    child: Image.network(
+                      restaurant.pictureId,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -56,10 +60,17 @@ class RestaurantListItem extends StatelessWidget {
                     const SizedBox.square(dimension: 4),
                     Row(
                       children: [
-                        Icon(
-                          Icons.star_half_outlined,
-                          size: 16,
-                          color: Theme.of(context).colorScheme.primary,
+                        Flexible(
+                          flex: 2,
+                          child: RatingBarIndicator(
+                            rating: restaurant.rating,
+                            itemCount: 5,
+                            itemSize: 14.0,
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
                         ),
                         const SizedBox.square(dimension: 4),
                         Expanded(

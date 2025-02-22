@@ -52,7 +52,10 @@ final List<Restaurant> restaurantList = [
     menus: Menu(
       foods: [
         Food(name: "Paket rosemary"),
-        Food(name: "Salmon"),
+        Food(name: "Paket rosemary"),
+        Food(name: "Paket rosemary"),
+        Food(name: "Paket rosemary"),
+        Food(name: "Paket rosemary"),
       ],
       drinks: [
         Drink(name: "Sirup"),

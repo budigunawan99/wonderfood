@@ -103,10 +103,10 @@ class WonderfoodTheme {
     onSecondary: WonderfoodColors.white.color,
     error: WonderfoodColors.red.color,
     onError: WonderfoodColors.white.color,
-    surface: WonderfoodColors.lightBlue.color,
+    surface: WonderfoodColors.neutralBlue.color,
     onSurface: WonderfoodColors.white.color,
     brightness: Brightness.dark,
-    surfaceContainer: WonderfoodColors.neutralBlue.color,
+    surfaceContainer: WonderfoodColors.lightBlue.color,
   );
 
   static final Color _lightFocusColor = Colors.black.withValues(

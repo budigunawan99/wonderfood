@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wonderfood/data/model/restaurant.dart';
 import 'package:wonderfood/provider/theme_provider.dart';
+import 'package:wonderfood/screen/detail/detail_screen.dart';
 import 'package:wonderfood/screen/home/home_screen.dart';
 import 'package:wonderfood/static/navigation_route.dart';
 import 'package:wonderfood/style/theme/wonderfood_theme.dart';
@@ -35,9 +37,9 @@ class MyApp extends StatelessWidget {
           initialRoute: NavigationRoute.homeRoute.name,
           routes: {
             NavigationRoute.homeRoute.name: (context) => const HomeScreen(),
-            // NavigationRoute.detailRoute.name: (context) => DetailScreen(
-            //       tourism: ModalRoute.of(context)?.settings.arguments as int,
-            //     ),
+            NavigationRoute.detailRoute.name: (context) => DetailScreen(
+                  restaurant: ModalRoute.of(context)?.settings.arguments as Restaurant,
+                ),
           },
         );
       },
