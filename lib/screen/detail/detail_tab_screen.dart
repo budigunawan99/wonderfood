@@ -185,6 +185,76 @@ class DetailTabScreen extends StatelessWidget {
             height: 2,
             thickness: 0.5,
           ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Minuman",
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox.square(dimension: 12),
+                SizedBox(
+                  height: 125,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: restaurant.menus?.drinks.length,
+                    itemBuilder: (context, index) {
+                      final food = restaurant.menus?.drinks[index];
+                      return Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              maxHeight: 120,
+                              minHeight: 100,
+                              maxWidth: 100,
+                              minWidth: 100,
+                            ),
+                            child: Card(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surfaceContainer,
+                              child: Padding(
+                                padding: EdgeInsets.all(6),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      food!.name,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 50,
+                            child: Image.asset(
+                              "images/drink_default.png",
+                              width: 85,
+                              height: 85,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Divider(
+            height: 2,
+            thickness: 0.5,
+          ),
         ],
       ),
     );

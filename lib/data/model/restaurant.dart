@@ -60,12 +60,15 @@ final List<Restaurant> restaurantList = [
       drinks: [
         Drink(name: "Sirup"),
         Drink(name: "Es krim"),
+        Drink(name: "Es krim"),
+        Drink(name: "Es krim"),
+        Drink(name: "Es krim"),
       ],
     ),
     customerReviews: [
       Review(
         name: "Ahmad",
-        review: "Enak sekali",
+        review: "Enak sekali sekali sekali sekali sekali sekali sekali sekali sekali sekali sekali sekali",
         date: "13 November 2019",
       ),
       Review(

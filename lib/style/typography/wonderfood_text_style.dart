@@ -95,14 +95,14 @@ class WonderfoodTextStyle {
 
   static TextStyle labelMedium = _poppins.copyWith(
     fontSize: 12,
-    fontWeight: FontWeight.w200,
+    fontWeight: FontWeight.w300,
     height: 1.4,
     letterSpacing: 1.25,
   );
 
   static TextStyle labelSmall = _poppins.copyWith(
     fontSize: 11,
-    fontWeight: FontWeight.w100,
+    fontWeight: FontWeight.w300,
     height: 1.2,
     letterSpacing: 1.25,
   );

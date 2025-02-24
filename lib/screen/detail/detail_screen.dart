@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wonderfood/data/model/restaurant.dart';
 import 'package:wonderfood/provider/theme_provider.dart';
 import 'package:wonderfood/screen/detail/detail_tab_screen.dart';
+import 'package:wonderfood/screen/detail/ulasan_tab_screen.dart';
 import 'package:wonderfood/style/colors/wonderfood_colors.dart';
 import 'package:wonderfood/utils/sliver_header_delegate.dart';
 
@@ -69,7 +70,7 @@ class DetailScreen extends StatelessWidget {
                 child: TabBarView(
                   children: <Widget>[
                     DetailTabScreen(restaurant: restaurant),
-                    Center(child: Text("It's rainy here")),
+                    UlasanTabScreen(restaurant: restaurant),
                   ],
                 ),
               ),
