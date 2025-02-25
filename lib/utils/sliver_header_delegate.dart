@@ -1,4 +1,3 @@
-// todo-02-header-02: create a SliverPersistentHeaderDelegate first
 import 'dart:math';
 
 import 'package:flutter/material.dart';
