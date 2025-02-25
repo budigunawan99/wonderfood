@@ -20,7 +20,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    onSearchTextChanged("");
+    Future.microtask(() {
+      onSearchTextChanged("");
+    });
   }
 
   @override

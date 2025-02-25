@@ -20,11 +20,17 @@ class RestaurantSearchProvider extends ChangeNotifier {
 
       if (query == "") {
         _resultState = RestaurantSearchNoneState();
+        notifyListeners();
       } else {
         final result = await _apiServices.searchRestaurantList(query);
 
-        _resultState = RestaurantSearchLoadedState(result.restaurants);
-        notifyListeners();
+        if (result.founded == 0) {
+          _resultState = RestaurantSearchNoneState();
+          notifyListeners();
+        } else {
+          _resultState = RestaurantSearchLoadedState(result.restaurants);
+          notifyListeners();
+        }
       }
     } on Exception catch (e) {
       _resultState = RestaurantSearchErrorState(e.toString());
