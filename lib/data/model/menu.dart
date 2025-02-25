@@ -9,4 +9,11 @@ class Menu {
     required this.foods,
     required this.drinks,
   });
+
+  factory Menu.fromJson(Map<String, dynamic> json) {
+    return Menu(
+      foods: List<Food>.from(json["foods"].map((x) => Food.fromJson(x))),
+      drinks: List<Drink>.from(json["drinks"].map((x) => Drink.fromJson(x))),
+    );
+  }
 }

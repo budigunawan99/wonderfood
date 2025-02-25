@@ -3,6 +3,8 @@ import 'package:wonderfood/data/model/restaurant.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class RestaurantListItem extends StatelessWidget {
+  static const String _smallImageUrl =
+      "https://restaurant-api.dicoding.dev/images/small/";
   final Restaurant restaurant;
   const RestaurantListItem({
     super.key,
@@ -40,7 +42,7 @@ class RestaurantListItem extends StatelessWidget {
                   child: Hero(
                     tag: restaurant.id,
                     child: Image.network(
-                      restaurant.pictureId,
+                      "$_smallImageUrl${restaurant.pictureId}",
                       fit: BoxFit.cover,
                     ),
                   ),
