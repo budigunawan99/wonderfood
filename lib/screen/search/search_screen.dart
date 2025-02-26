@@ -38,6 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
         slivers: [
           RoundedSliverAppBar(
             isFirstPage: false,
+            title: "Cari Restoran",
           ),
           SliverPadding(
             padding: EdgeInsets.all(9),

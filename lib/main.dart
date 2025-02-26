@@ -4,10 +4,12 @@ import 'package:wonderfood/data/api/api_services.dart';
 import 'package:wonderfood/data/model/restaurant.dart';
 import 'package:wonderfood/provider/detail/restaurant_detail_provider.dart';
 import 'package:wonderfood/provider/home/restaurant_list_provider.dart';
+import 'package:wonderfood/provider/review/restaurant_review_provider.dart';
 import 'package:wonderfood/provider/search/restaurant_search_provider.dart';
 import 'package:wonderfood/provider/theme_provider.dart';
 import 'package:wonderfood/screen/detail/detail_screen.dart';
 import 'package:wonderfood/screen/home/home_screen.dart';
+import 'package:wonderfood/screen/review/review_screen.dart';
 import 'package:wonderfood/screen/search/search_screen.dart';
 import 'package:wonderfood/static/navigation_route.dart';
 import 'package:wonderfood/style/theme/wonderfood_theme.dart';
@@ -37,6 +39,11 @@ void main() {
             context.read<ApiServices>(),
           ),
         ),
+        ChangeNotifierProvider(
+          create: (context) => RestaurantReviewProvider(
+            context.read<ApiServices>(),
+          ),
+        ),
       ],
       child: const MyApp(),
     ),
@@ -61,6 +68,10 @@ class MyApp extends StatelessWidget {
           routes: {
             NavigationRoute.homeRoute.name: (context) => const HomeScreen(),
             NavigationRoute.searchRoute.name: (context) => const SearchScreen(),
+            NavigationRoute.reviewRoute.name: (context) => ReviewScreen(
+                  restaurantId:
+                      ModalRoute.of(context)?.settings.arguments as String,
+                ),
             NavigationRoute.detailRoute.name: (context) => DetailScreen(
                   restaurant:
                       ModalRoute.of(context)?.settings.arguments as Restaurant,

@@ -46,7 +46,7 @@ class RoundedSliverAppBar extends StatelessWidget
           },
           icon: Icon(
             Icons.arrow_back_ios,
-            size: 25,
+            size: 20,
           ),
         ),
       );

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:wonderfood/data/model/restaurant_detail_response.dart';
 import 'package:wonderfood/data/model/restaurant_list_response.dart';
+import 'package:wonderfood/data/model/restaurant_review_request.dart';
+import 'package:wonderfood/data/model/restaurant_review_response.dart';
 import 'package:wonderfood/data/model/restaurant_search_response.dart';
 
 class ApiServices {
@@ -35,6 +37,23 @@ class ApiServices {
       return RestaurantSearchResponse.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to search restaurant');
+    }
+  }
+
+  Future<RestaurantReviewResponse> postRestaurantReview(
+      RestaurantReviewRequest review) async {
+    final response = await http.post(
+      Uri.parse("$_baseUrl/review"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(review.toJson()),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return RestaurantReviewResponse.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to review restaurant');
     }
   }
 }
