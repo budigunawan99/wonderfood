@@ -105,7 +105,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset(
-                            "images/search_illustration.png",
+                            "assets/images/search_illustration.png",
                             width: 250,
                             height: 250,
                           ),

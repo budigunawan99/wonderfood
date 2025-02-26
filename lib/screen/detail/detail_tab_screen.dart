@@ -4,10 +4,7 @@ import 'package:wonderfood/data/model/restaurant.dart';
 class DetailTabScreen extends StatelessWidget {
   final Restaurant restaurant;
 
-  const DetailTabScreen({
-    super.key,
-    required this.restaurant,
-  });
+  const DetailTabScreen({super.key, required this.restaurant});
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +32,7 @@ class DetailTabScreen extends StatelessWidget {
               ],
             ),
           ),
-          Divider(
-            height: 2,
-            thickness: 0.5,
-          ),
+          Divider(height: 2, thickness: 0.5),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
@@ -60,10 +54,7 @@ class DetailTabScreen extends StatelessWidget {
               ],
             ),
           ),
-          Divider(
-            height: 2,
-            thickness: 0.5,
-          ),
+          Divider(height: 2, thickness: 0.5),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
@@ -85,10 +76,7 @@ class DetailTabScreen extends StatelessWidget {
               ],
             ),
           ),
-          Divider(
-            height: 2,
-            thickness: 0.5,
-          ),
+          Divider(height: 2, thickness: 0.5),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -111,10 +99,7 @@ class DetailTabScreen extends StatelessWidget {
               ],
             ),
           ),
-          Divider(
-            height: 2,
-            thickness: 0.5,
-          ),
+          Divider(height: 2, thickness: 0.5),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -145,9 +130,10 @@ class DetailTabScreen extends StatelessWidget {
                               minWidth: 100,
                             ),
                             child: Card(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainer,
+                              color:
+                                  Theme.of(
+                                    context,
+                                  ).colorScheme.surfaceContainer,
                               child: Padding(
                                 padding: EdgeInsets.all(6),
                                 child: Column(
@@ -168,7 +154,7 @@ class DetailTabScreen extends StatelessWidget {
                           Positioned(
                             bottom: 65,
                             child: Image.asset(
-                              "images/food_default.png",
+                              "assets/images/food_default.png",
                               width: 60,
                               height: 60,
                             ),
@@ -181,10 +167,7 @@ class DetailTabScreen extends StatelessWidget {
               ],
             ),
           ),
-          Divider(
-            height: 2,
-            thickness: 0.5,
-          ),
+          Divider(height: 2, thickness: 0.5),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -215,9 +198,10 @@ class DetailTabScreen extends StatelessWidget {
                               minWidth: 100,
                             ),
                             child: Card(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainer,
+                              color:
+                                  Theme.of(
+                                    context,
+                                  ).colorScheme.surfaceContainer,
                               child: Padding(
                                 padding: EdgeInsets.all(6),
                                 child: Column(
@@ -238,7 +222,7 @@ class DetailTabScreen extends StatelessWidget {
                           Positioned(
                             bottom: 50,
                             child: Image.asset(
-                              "images/drink_default.png",
+                              "assets/images/drink_default.png",
                               width: 85,
                               height: 85,
                             ),
@@ -251,10 +235,7 @@ class DetailTabScreen extends StatelessWidget {
               ],
             ),
           ),
-          Divider(
-            height: 2,
-            thickness: 0.5,
-          ),
+          Divider(height: 2, thickness: 0.5),
         ],
       ),
     );

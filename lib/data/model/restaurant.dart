@@ -36,22 +36,24 @@ class Restaurant {
       description: json["description"],
       pictureId: json["pictureId"],
       city: json["city"],
-      rating: json["rating"],
+      rating: json["rating"].toDouble(),
       address: json["address"] ?? "",
-      categories: json["categories"] != null
-          ? List<RestaurantCategory>.from(
-              json["categories"].map((x) => RestaurantCategory.fromJson(x)))
-          : <RestaurantCategory>[],
-      menus: json["menus"] != null
-          ? Menu.fromJson(json["menus"])
-          : Menu(
-              foods: <Food>[],
-              drinks: <Drink>[],
-            ),
-      customerReviews: json["customerReviews"] != null
-          ? List<Review>.from(
-              json["customerReviews"].map((x) => Review.fromJson(x)))
-          : <Review>[],
+      categories:
+          json["categories"] != null
+              ? List<RestaurantCategory>.from(
+                json["categories"].map((x) => RestaurantCategory.fromJson(x)),
+              )
+              : <RestaurantCategory>[],
+      menus:
+          json["menus"] != null
+              ? Menu.fromJson(json["menus"])
+              : Menu(foods: <Food>[], drinks: <Drink>[]),
+      customerReviews:
+          json["customerReviews"] != null
+              ? List<Review>.from(
+                json["customerReviews"].map((x) => Review.fromJson(x)),
+              )
+              : <Review>[],
     );
   }
 }

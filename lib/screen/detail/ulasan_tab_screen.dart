@@ -1,96 +1,88 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wonderfood/data/model/restaurant.dart';
 import 'package:wonderfood/data/model/review.dart';
+import 'package:wonderfood/provider/detail/restaurant_detail_provider.dart';
 import 'package:wonderfood/static/navigation_route.dart';
 
 class UlasanTabScreen extends StatefulWidget {
   final Restaurant restaurant;
 
-  const UlasanTabScreen({
-    super.key,
-    required this.restaurant,
-  });
+  const UlasanTabScreen({super.key, required this.restaurant});
 
   @override
   State<UlasanTabScreen> createState() => _UlasanTabScreenState();
 }
 
 class _UlasanTabScreenState extends State<UlasanTabScreen> {
-  late List<Review> customerReviews;
-
-  @override
-  void initState() {
-    super.initState();
-    customerReviews = widget.restaurant.customerReviews ?? [];
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-            padding: const EdgeInsets.fromLTRB(
-              12,
-              22,
-              12,
-              12,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Lihat Ulasan",
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                Flexible(
-                  flex: 1,
-                  child: TextButton(
-                    onPressed: () async {
-                      final updatedReviews = await Navigator.pushNamed(
-                        context,
-                        NavigationRoute.reviewRoute.name,
-                        arguments: widget.restaurant.id,
-                      );
-                      if (!context.mounted || updatedReviews is! List<Review>) {
-                        return;
-                      }
-                      setState(
-                        () {
-                          customerReviews = updatedReviews;
-                        },
-                      );
-                    },
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                        top: 10,
-                        bottom: 10,
-                      ),
-                      backgroundColor:
-                          Theme.of(context).colorScheme.surfaceContainer,
-                      shape: const StadiumBorder(),
+          padding: const EdgeInsets.fromLTRB(12, 22, 12, 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Lihat Ulasan",
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Flexible(
+                flex: 1,
+                child: TextButton(
+                  onPressed: () async {
+                    final updatedReviews = await Navigator.pushNamed(
+                      context,
+                      NavigationRoute.reviewRoute.name,
+                      arguments: widget.restaurant.id,
+                    );
+                    if (!context.mounted || updatedReviews is! List<Review>) {
+                      return;
+                    }
+                    context.read<RestaurantDetailProvider>().setCustomerReviews(
+                      updatedReviews,
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                      top: 10,
+                      bottom: 10,
                     ),
-                    child: Text(
-                      'Review',
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
+                    backgroundColor:
+                        Theme.of(context).colorScheme.surfaceContainer,
+                    shape: const StadiumBorder(),
+                  ),
+                  child: Text(
+                    'Review',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                 ),
-              ],
-            )),
+              ),
+            ],
+          ),
+        ),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: customerReviews.length,
+              itemCount:
+                  context
+                      .watch<RestaurantDetailProvider>()
+                      .customerReviews
+                      .length,
               itemBuilder: (context, index) {
-                final review = customerReviews[index];
+                final review =
+                    context
+                        .watch<RestaurantDetailProvider>()
+                        .customerReviews[index];
                 return Card(
                   color: Theme.of(context).colorScheme.surfaceContainer,
                   child: Padding(
@@ -108,7 +100,7 @@ class _UlasanTabScreenState extends State<UlasanTabScreen> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50),
                             child: Image.asset(
-                              "images/user.png",
+                              "assets/images/user.png",
                               fit: BoxFit.cover,
                             ),
                           ),

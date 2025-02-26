@@ -8,24 +8,22 @@ class RoundedSliverAppBar extends StatelessWidget
   final bool isFirstPage;
   final String? title;
 
-  const RoundedSliverAppBar({
-    super.key,
-    required this.isFirstPage,
-    this.title,
-  });
+  const RoundedSliverAppBar({super.key, required this.isFirstPage, this.title});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
-      return SliverAppBar(
-        title: titleOptions(title, themeProvider),
-        leading: leadingOptions(context),
-        actions: [ThemeSwitcher()],
-        pinned: true,
-        floating: true,
-        snap: true,
-      );
-    });
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return SliverAppBar(
+          title: titleOptions(title, themeProvider),
+          leading: leadingOptions(context),
+          actions: [ThemeSwitcher()],
+          pinned: true,
+          floating: true,
+          snap: true,
+        );
+      },
+    );
   }
 
   @override
@@ -36,18 +34,12 @@ class RoundedSliverAppBar extends StatelessWidget
       return null;
     } else {
       return Padding(
-        padding: const EdgeInsets.only(
-          left: 11.0,
-          right: 11.0,
-        ),
+        padding: const EdgeInsets.only(left: 11.0, right: 11.0),
         child: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
-            Icons.arrow_back_ios,
-            size: 20,
-          ),
+          icon: Icon(Icons.arrow_back_ios, size: 20),
         ),
       );
     }
@@ -56,20 +48,19 @@ class RoundedSliverAppBar extends StatelessWidget
   Widget titleOptions(title, themeProvider) {
     if (title == null) {
       return Padding(
-        padding: const EdgeInsets.only(
-          left: 11.0,
-        ),
-        child: themeProvider.isDarkMode
-            ? Image.asset(
-                "images/logo_header_wonderfood_dark.png",
-                width: 160,
-                height: 40,
-              )
-            : Image.asset(
-                "images/logo_header_wonderfood.png",
-                width: 160,
-                height: 40,
-              ),
+        padding: const EdgeInsets.only(left: 11.0),
+        child:
+            themeProvider.isDarkMode
+                ? Image.asset(
+                  "assets/images/logo_header_wonderfood_dark.png",
+                  width: 160,
+                  height: 40,
+                )
+                : Image.asset(
+                  "assets/images/logo_header_wonderfood.png",
+                  width: 160,
+                  height: 40,
+                ),
       );
     } else {
       return Text(title);
