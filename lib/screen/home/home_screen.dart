@@ -28,32 +28,25 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(
-            context,
-            NavigationRoute.searchRoute.name,
-          );
+          Navigator.pushNamed(context, NavigationRoute.searchRoute.name);
         },
         tooltip: 'Search Restaurant',
         child: const Icon(Icons.search, size: 28),
       ),
       body: CustomScrollView(
         slivers: [
-          RoundedSliverAppBar(
-            isFirstPage: true,
-          ),
+          RoundedSliverAppBar(isFirstPage: true),
           SliverPadding(
             padding: const EdgeInsets.all(9),
             sliver: Consumer<RestaurantListProvider>(
               builder: (context, value, child) {
                 return switch (value.resultState) {
                   RestaurantListLoadingState() => SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        child: SkeletonLoading(
-                          count: 10,
-                        ),
-                      ),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: SkeletonLoading(count: 10),
                     ),
+                  ),
                   RestaurantListLoadedState(data: var restaurantList) =>
                     SliverList.separated(
                       itemCount: restaurantList.length,
@@ -85,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Image.asset(
-                              "images/nodata.png",
+                              "assets/images/nodata.png",
                               width: 250,
                               height: 250,
                             ),
@@ -99,10 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   _ => SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                      ),
-                    ),
+                    child: SizedBox(height: MediaQuery.of(context).size.height),
+                  ),
                 };
               },
             ),

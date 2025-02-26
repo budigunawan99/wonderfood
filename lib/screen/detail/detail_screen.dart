@@ -11,10 +11,7 @@ import 'package:wonderfood/utils/sliver_header_delegate.dart';
 
 class DetailScreen extends StatefulWidget {
   final Restaurant restaurant;
-  const DetailScreen({
-    super.key,
-    required this.restaurant,
-  });
+  const DetailScreen({super.key, required this.restaurant});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -29,9 +26,9 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
 
     Future.microtask(() {
-      context
-          .read<RestaurantDetailProvider>()
-          .fetchRestaurantDetail(widget.restaurant.id);
+      context.read<RestaurantDetailProvider>().fetchRestaurantDetail(
+        widget.restaurant.id,
+      );
     });
   }
 
@@ -49,10 +46,7 @@ class _DetailScreenState extends State<DetailScreen> {
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
                 title: Padding(
-                  padding: EdgeInsets.only(
-                    left: 10,
-                    right: 10,
-                  ),
+                  padding: EdgeInsets.only(left: 10, right: 10),
                   child: Text(
                     widget.restaurant.name,
                     style: Theme.of(context).textTheme.titleLarge,
@@ -65,7 +59,8 @@ class _DetailScreenState extends State<DetailScreen> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(
-                            "$_mediumImageUrl${widget.restaurant.pictureId}"),
+                          "$_mediumImageUrl${widget.restaurant.pictureId}",
+                        ),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -73,23 +68,30 @@ class _DetailScreenState extends State<DetailScreen> {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: context.watch<ThemeProvider>().isDarkMode
-                            ? [
-                                WonderfoodColors.lightBlue.color
-                                    .withValues(alpha: 0),
-                                WonderfoodColors.lightBlue.color
-                                    .withValues(alpha: 0.5),
-                                WonderfoodColors.lightBlue.color
-                                    .withValues(alpha: 1)
-                              ]
-                            : [
-                                WonderfoodColors.lightOrange.color
-                                    .withValues(alpha: 0),
-                                WonderfoodColors.lightOrange.color
-                                    .withValues(alpha: 0.5),
-                                WonderfoodColors.lightOrange.color
-                                    .withValues(alpha: 1),
-                              ],
+                        colors:
+                            context.watch<ThemeProvider>().isDarkMode
+                                ? [
+                                  WonderfoodColors.lightBlue.color.withValues(
+                                    alpha: 0,
+                                  ),
+                                  WonderfoodColors.lightBlue.color.withValues(
+                                    alpha: 0.5,
+                                  ),
+                                  WonderfoodColors.lightBlue.color.withValues(
+                                    alpha: 1,
+                                  ),
+                                ]
+                                : [
+                                  WonderfoodColors.lightOrange.color.withValues(
+                                    alpha: 0,
+                                  ),
+                                  WonderfoodColors.lightOrange.color.withValues(
+                                    alpha: 0.5,
+                                  ),
+                                  WonderfoodColors.lightOrange.color.withValues(
+                                    alpha: 1,
+                                  ),
+                                ],
                       ),
                     ),
                   ),
@@ -102,10 +104,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 dividerHeight: 0.5,
                 labelColor: Theme.of(context).colorScheme.onSurface,
                 labelStyle: Theme.of(context).textTheme.labelLarge,
-                tabs: [
-                  Tab(text: "Detail"),
-                  Tab(text: "Ulasan"),
-                ],
+                tabs: [Tab(text: "Detail"), Tab(text: "Ulasan")],
               ),
             ),
             SliverToBoxAdapter(
@@ -115,8 +114,8 @@ class _DetailScreenState extends State<DetailScreen> {
                   builder: (context, value, child) {
                     return switch (value.resultState) {
                       RestaurantDetailLoadingState() => const Center(
-                          child: CircularProgressIndicator(),
-                        ),
+                        child: CircularProgressIndicator(),
+                      ),
                       RestaurantDetailLoadedState(data: var restaurantDetail) =>
                         TabBarView(
                           children: <Widget>[
@@ -125,47 +124,44 @@ class _DetailScreenState extends State<DetailScreen> {
                           ],
                         ),
                       RestaurantDetailErrorState(error: var message) => Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(9),
-                            child: SizedBox(
-                              height: MediaQuery.of(context).size.height -
-                                  kToolbarHeight,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    "images/nodata.png",
-                                    width: 250,
-                                    height: 250,
-                                  ),
-                                  const SizedBox.square(dimension: 10),
-                                  Text(
-                                    message,
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                ],
-                              ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(9),
+                          child: SizedBox(
+                            height:
+                                MediaQuery.of(context).size.height -
+                                kToolbarHeight,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/images/nodata.png",
+                                  width: 250,
+                                  height: 250,
+                                ),
+                                const SizedBox.square(dimension: 10),
+                                Text(
+                                  message,
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              ],
                             ),
                           ),
                         ),
+                      ),
                       _ => const SizedBox(),
                     };
                   },
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-  SliverPersistentHeader _header(
-    BuildContext context,
-    TabBar tabBar,
-  ) {
+  SliverPersistentHeader _header(BuildContext context, TabBar tabBar) {
     return SliverPersistentHeader(
       pinned: true,
       delegate: SliverHeaderDelegate(

@@ -6,10 +6,7 @@ class RestaurantListItem extends StatelessWidget {
   static const String _smallImageUrl =
       "https://restaurant-api.dicoding.dev/images/small/";
   final Restaurant restaurant;
-  const RestaurantListItem({
-    super.key,
-    required this.restaurant,
-  });
+  const RestaurantListItem({super.key, required this.restaurant});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +20,7 @@ class RestaurantListItem extends StatelessWidget {
           color: Theme.of(context).colorScheme.surfaceContainer,
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 15,
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -44,6 +38,12 @@ class RestaurantListItem extends StatelessWidget {
                     child: Image.network(
                       "$_smallImageUrl${restaurant.pictureId}",
                       fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          'assets/images/img_default.png',
+                          fit: BoxFit.fitWidth,
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -68,10 +68,11 @@ class RestaurantListItem extends StatelessWidget {
                             rating: restaurant.rating,
                             itemCount: 5,
                             itemSize: 14.0,
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
+                            itemBuilder:
+                                (context, _) => Icon(
+                                  Icons.star,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
                           ),
                         ),
                         const SizedBox.square(dimension: 4),
