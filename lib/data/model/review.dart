@@ -3,11 +3,7 @@ class Review {
   final String review;
   final String date;
 
-  Review({
-    required this.name,
-    required this.review,
-    required this.date,
-  });
+  Review({required this.name, required this.review, required this.date});
 
   factory Review.fromJson(Map<String, dynamic> json) {
     return Review(
@@ -16,4 +12,10 @@ class Review {
       date: json["date"],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "review": review,
+    "date": date,
+  };
 }

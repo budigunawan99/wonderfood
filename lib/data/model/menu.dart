@@ -5,10 +5,7 @@ class Menu {
   final List<Food> foods;
   final List<Drink> drinks;
 
-  Menu({
-    required this.foods,
-    required this.drinks,
-  });
+  Menu({required this.foods, required this.drinks});
 
   factory Menu.fromJson(Map<String, dynamic> json) {
     return Menu(
@@ -16,4 +13,9 @@ class Menu {
       drinks: List<Drink>.from(json["drinks"].map((x) => Drink.fromJson(x))),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    "foods": List<Food>.from(foods.map((x) => x.toJson())),
+    "drinks": List<Drink>.from(drinks.map((x) => x.toJson())),
+  };
 }

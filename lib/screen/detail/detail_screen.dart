@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wonderfood/data/model/restaurant.dart';
+import 'package:wonderfood/provider/detail/favorite_icon_provider.dart';
 import 'package:wonderfood/provider/detail/restaurant_detail_provider.dart';
 import 'package:wonderfood/provider/theme_provider.dart';
 import 'package:wonderfood/screen/detail/detail_tab_screen.dart';
+import 'package:wonderfood/screen/detail/favorite_icon_widget.dart';
 import 'package:wonderfood/screen/detail/ulasan_tab_screen.dart';
 import 'package:wonderfood/static/restaurant_detail_result_state.dart';
 import 'package:wonderfood/style/colors/wonderfood_colors.dart';
@@ -40,6 +42,13 @@ class _DetailScreenState extends State<DetailScreen> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
+              actions: [
+                ChangeNotifierProvider(
+                  create: (context) => FavoriteIconProvider(),
+                  child: FavoriteIconWidget(restaurant: widget.restaurant),
+                ),
+                const SizedBox.square(dimension: 20),
+              ],
               expandedHeight: 200.0,
               floating: false,
               pinned: true,
