@@ -32,6 +32,18 @@ class RoundedSliverAppBar extends StatelessWidget
                 child: Icon(Icons.favorite, size: 20),
               ),
             ),
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  NavigationRoute.settingsRoute.name,
+                );
+              },
+              icon: Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Icon(Icons.settings, size: 20),
+              ),
+            ),
           ],
           pinned: true,
           floating: true,

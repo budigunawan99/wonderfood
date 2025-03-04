@@ -87,8 +87,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   _ => SliverToBoxAdapter(
                     child: SizedBox(
                       height:
-                          MediaQuery.of(context).size.height -
-                          (2 * kToolbarHeight),
+                          MediaQuery.of(context).size.height - kToolbarHeight,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,

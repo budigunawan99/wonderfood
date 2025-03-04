@@ -3,6 +3,7 @@ enum NavigationRoute {
   detailRoute("/detail"),
   reviewRoute("/review"),
   favoriteRoute("/favorite"),
+  settingsRoute("/settings"),
   searchRoute("/search");
 
   const NavigationRoute(this.name);
