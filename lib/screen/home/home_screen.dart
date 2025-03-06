@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wonderfood/data/local/local_notification_service.dart';
+import 'package:wonderfood/data/model/received_notification.dart';
+import 'package:wonderfood/data/model/restaurant.dart';
 import 'package:wonderfood/provider/home/restaurant_list_provider.dart';
+import 'package:wonderfood/provider/settings/payload_provider.dart';
 import 'package:wonderfood/screen/common/rounded_sliver_app_bar.dart';
 import 'package:wonderfood/screen/common/skeleton_loading.dart';
 import 'package:wonderfood/screen/home/restaurant_list_item.dart';
@@ -15,12 +21,48 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void _configureSelectNotificationSubject() {
+    selectNotificationStream.stream.listen((String? payload) {
+      context.read<PayloadProvider>().payload = payload;
+      Navigator.pushNamed(
+        context,
+        NavigationRoute.detailRoute.name,
+        arguments: Restaurant.fromJson(jsonDecode(payload ?? "")),
+      );
+    });
+  }
+
+  void _configureDidReceiveLocalNotificationSubject() {
+    didReceiveLocalNotificationStream.stream.listen((
+      ReceivedNotification receivedNotification,
+    ) {
+      final payload = receivedNotification.payload;
+      context.read<PayloadProvider>().payload = payload;
+      Navigator.pushNamed(
+        context,
+        NavigationRoute.detailRoute.name,
+        arguments: Restaurant.fromJson(
+          jsonDecode(receivedNotification.payload ?? ""),
+        ),
+      );
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    _configureSelectNotificationSubject();
+    _configureDidReceiveLocalNotificationSubject();
     Future.microtask(() {
       context.read<RestaurantListProvider>().fetchRestaurantList();
     });
+  }
+
+  @override
+  void dispose() {
+    selectNotificationStream.close();
+    didReceiveLocalNotificationStream.close();
+    super.dispose();
   }
 
   @override

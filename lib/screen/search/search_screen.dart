@@ -36,10 +36,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          RoundedSliverAppBar(
-            isFirstPage: false,
-            title: "Cari Restoran",
-          ),
+          RoundedSliverAppBar(isFirstPage: false, title: "Cari Restoran"),
           SliverPadding(
             padding: EdgeInsets.all(9),
             sliver: SliverToBoxAdapter(
@@ -72,13 +69,11 @@ class _SearchScreenState extends State<SearchScreen> {
               builder: (context, value, child) {
                 return switch (value.resultState) {
                   RestaurantSearchLoadingState() => SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        child: SkeletonLoading(
-                          count: 10,
-                        ),
-                      ),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: SkeletonLoading(count: 10),
                     ),
+                  ),
                   RestaurantSearchLoadedState(data: var restaurantList) =>
                     SliverList.separated(
                       itemCount: restaurantList.length,
@@ -100,22 +95,22 @@ class _SearchScreenState extends State<SearchScreen> {
                       },
                     ),
                   _ => SliverToBoxAdapter(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/images/search_illustration.png",
-                            width: 250,
-                            height: 250,
-                          ),
-                          Text(
-                            "Ketik nama restoran yang ingin anda cari",
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ],
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/images/search_illustration.png",
+                          width: 250,
+                          height: 250,
+                        ),
+                        Text(
+                          "Ketik nama restoran yang ingin anda cari",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
                     ),
+                  ),
                 };
               },
             ),

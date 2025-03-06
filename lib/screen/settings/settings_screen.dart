@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wonderfood/provider/settings/notification_provider.dart';
 import 'package:wonderfood/provider/settings/notification_shared_preferences_provider.dart';
 import 'package:wonderfood/screen/common/rounded_sliver_app_bar.dart';
+import 'package:wonderfood/services/workmanager_service.dart';
 import 'package:wonderfood/style/colors/wonderfood_colors.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -60,38 +61,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             value:
                                 context.watch<NotificationProvider>().isEnabled,
                             activeColor: Theme.of(context).colorScheme.primary,
-                            onChanged: (bool value) async {
-                              final notificationSharedPreferencesProvider =
-                                  context
-                                      .read<
-                                        NotificationSharedPreferencesProvider
-                                      >();
-                              final notificationProvider =
-                                  context.read<NotificationProvider>();
-                              notificationProvider.setEnabled(
-                                !notificationProvider.isEnabled,
-                              );
-                              try {
-                                await notificationSharedPreferencesProvider
-                                    .saveNotificationStatus(
-                                      notificationProvider.isEnabled,
-                                    );
-                              } catch (e) {
-                                WidgetsBinding.instance.addPostFrameCallback((
-                                  _,
-                                ) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        notificationSharedPreferencesProvider
-                                            .message,
-                                      ),
-                                      backgroundColor:
-                                          WonderfoodColors.red.color,
-                                    ),
-                                  );
-                                });
-                              }
+                            onChanged: (bool value) {
+                              onSwitchChanged(value);
                             },
                           ),
                         ),
@@ -106,5 +77,42 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
     );
+  }
+
+  Future onSwitchChanged(bool value) async {
+    final notificationSharedPreferencesProvider =
+        context.read<NotificationSharedPreferencesProvider>();
+    final notificationProvider = context.read<NotificationProvider>();
+
+    notificationProvider.setEnabled(value);
+
+    if (value == true && notificationProvider.permission != true) {
+      await notificationProvider.requestPermissions();
+      if (notificationProvider.permission != true) {
+        notificationProvider.setEnabled(false);
+        return;
+      }
+    }
+
+    try {
+      await notificationSharedPreferencesProvider.saveNotificationStatus(
+        notificationProvider.isEnabled,
+      );
+    } catch (e) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(notificationSharedPreferencesProvider.message),
+            backgroundColor: WonderfoodColors.red.color,
+          ),
+        );
+      });
+    }
+
+    if (notificationProvider.isEnabled) {
+      context.read<WorkmanagerService>().runPeriodicTask();
+    } else {
+      context.read<WorkmanagerService>().cancelAllTask();
+    }
   }
 }

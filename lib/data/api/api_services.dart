@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
+import 'package:wonderfood/data/model/restaurant.dart';
 import 'package:wonderfood/data/model/restaurant_detail_response.dart';
 import 'package:wonderfood/data/model/restaurant_list_response.dart';
 import 'package:wonderfood/data/model/restaurant_review_request.dart';
@@ -94,6 +96,34 @@ class ApiServices {
         return RestaurantReviewResponse.fromJson(jsonDecode(response.body));
       } else {
         throw Exception('Gagal untuk mereview restoran.');
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        throw Exception('Tidak ada koneksi internet. Coba lagi nanti.');
+      } else if (e is TimeoutException) {
+        throw Exception('Waktu habis. Coba lagi nanti.');
+      } else if (e is FormatException) {
+        throw Exception('Gagal loading data. Coba lagi nanti.');
+      } else {
+        throw Exception("Terjadi kesalahan. Mohon coba lagi nanti.");
+      }
+    }
+  }
+
+  Future<Restaurant> getRandomRestaurant() async {
+    try {
+      final response = await http.get(Uri.parse("$_baseUrl/list"));
+
+      if (response.statusCode == 200) {
+        final restaurantList = jsonDecode(response.body)["restaurants"];
+        if (restaurantList.isNotEmpty) {
+          final restaurant =
+              restaurantList[Random().nextInt(restaurantList.length)];
+          return Restaurant.fromJson(restaurant);
+        }
+        throw Exception('Tidak ada rekomendasi restoran.');
+      } else {
+        throw Exception('Gagal untuk menampilkan daftar restoran.');
       }
     } catch (e) {
       if (e is SocketException) {
